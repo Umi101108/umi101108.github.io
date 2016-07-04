@@ -5,9 +5,32 @@
     <description></description>
     <link>http://umi101108.github.io/</link>
     <atom:link href="http://umi101108.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 04 Jul 2016 22:23:11 +0800</pubDate>
-    <lastBuildDate>Mon, 04 Jul 2016 22:23:11 +0800</lastBuildDate>
+    <pubDate>Mon, 04 Jul 2016 23:02:26 +0800</pubDate>
+    <lastBuildDate>Mon, 04 Jul 2016 23:02:26 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>这是我的第一篇博客</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;这是第一篇博客&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;这是第一篇博客&lt;/h2&gt;
+&lt;p&gt;希望以后能坚持写下去&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 04 Jul 2016 08:06:05 +0800</pubDate>
+        <link>http://umi101108.github.io/2016/07/04/first-blog/</link>
+        <guid isPermaLink="true">http://umi101108.github.io/2016/07/04/first-blog/</guid>
+        
+        <category>blog</category>
+        
+        <category>daily</category>
+        
+        
+        <category>日记</category>
+        
+      </item>
     
       <item>
         <title>Weinre2222 --WebApp 调试工具</title>
