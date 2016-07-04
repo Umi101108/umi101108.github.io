@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Umi</title>
+    <description></description>
+    <link>http://umi101108.github.io/</link>
+    <atom:link href="http://umi101108.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 04 Jul 2016 22:23:11 +0800</pubDate>
+    <lastBuildDate>Mon, 04 Jul 2016 22:23:11 +0800</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Weinre2222 --WebApp 调试工具</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#weinre&quot; id=&quot;markdown-toc-weinre&quot;&gt;什么是 weinre？&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#weinre-1&quot; id=&quot;markdown-toc-weinre-1&quot;&gt;为什么用 weinre？&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;原理&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;安装&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;使用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;weinre&quot;&gt;什么是 weinre？&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html&quot;&gt;weinre官网&lt;/a&gt; 上有两句有意思的介绍：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;weinre&lt;/strong&gt; is &lt;strong&gt;WE&lt;/strong&gt;b &lt;strong&gt;IN&lt;/strong&gt;spector &lt;strong&gt;RE&lt;/strong&gt;mote. Pronounced like the word “winery”. Or maybe like the word “weiner”. Who knows, really.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;weinre&lt;/strong&gt; is a debugger for web pages, like FireBug (for FireFox) and Web Inspector (for WebKit-based browsers), except it’s designed to work remotely, and in particular, to allow you debug web pages on a mobile device such as a phone.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;上面说 weinre 是一个远程 web 调试器。说到了它的发音，还挺幽默，哈哈。&lt;/p&gt;
+
+&lt;p&gt;远程 web 调试器。先说调试器，就像火狐中的 FireBug，Chrome 中的调试器一样。就是在浏览器中按下 &lt;code class=&quot;highlighter-rouge&quot;&gt;F12&lt;/code&gt; 出现的那个工具。但是在手机上，你没办法按 &lt;code class=&quot;highlighter-rouge&quot;&gt;F12&lt;/code&gt;，而这个 weinre 就是在手机上的 &lt;code class=&quot;highlighter-rouge&quot;&gt;F12&lt;/code&gt;，与传统的不同的是，它是在手机上浏览你的 web 页面，在 PC 上查看调试工具，非常方便，这就是所谓的远程。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;weinre-1&quot;&gt;为什么用 weinre？&lt;/h2&gt;
+
+&lt;p&gt;现代浏览器中调试工具都非常强大了，可以直接模拟手机设备，为什么还要用 weinre 这么麻烦的东西呢？&lt;/p&gt;
+
+&lt;p&gt;我觉得 PC 端的浏览器虽说可以模拟，但模拟毕竟还是模拟，还只是鼠标长按滑来滑去。在开发过程中，使用手机或平板直接来感受是多么的酷，指尖在移动设备的屏幕上摩擦摩擦！给人的直观感受绝对秒杀浏览器的模拟。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;原理&lt;/h2&gt;
+
+&lt;p&gt;使用一种工具之前，了解它的原理和结构是很有帮助的。weinre 作为一种远程调试工具，在结构上分为三层：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标页面（target）：被调试的页面，页面已嵌入 weinre 的远程 js，下文会介绍；&lt;/li&gt;
+  &lt;li&gt;Debug客户端（client）：本地的 Web Inspector 调试客户端；&lt;/li&gt;
+  &lt;li&gt;Debug服务端（agent）：一个 HTTP Server，为目标页面与 Debug 客户端建立通信。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;三层结构如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://muellerware.org/papers/weinre/images/http-flow.png&quot; alt=&quot;http-flow&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;weinre 的 debug 客户端是基于 Web Inspector 开发，而 Web Inspector 只与以 WebKit 为核心的浏览器兼容，所以 Weinre 的客户端只能用 Chrome 或者 Safari 打开。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html&quot;&gt;官网&lt;/a&gt;上也有相应的平台支持说明：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Platforms supported - debug server 服务端&lt;/p&gt;
+
+    &lt;p&gt;任何支持 node.js 的平台。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Platforms supported - debug client 客户端（跑 debugger 界面的浏览器）&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Google Chrome&lt;/li&gt;
+      &lt;li&gt;Apple Safari&lt;/li&gt;
+      &lt;li&gt;Other recent-ish WebKit-based browsers 其他基于 webkit 内核的现代浏览器&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Platforms supported - debug target 目标页面（在移动设备中调试运行的目标页面）&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Android Browser application&lt;/li&gt;
+      &lt;li&gt;iOS Mobile Safari application&lt;/li&gt;
+      &lt;li&gt;PhoneGap/Cordova&lt;/li&gt;
+      &lt;li&gt;other&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;安装&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;weinre 是 nodeJS 的一个应用，首先要 &lt;a href=&quot;https://nodejs.org/&quot;&gt;安装 nodeJS 运行环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用 npm 命令，安装 weinre&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; npm -g install weinre
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;安装成功后会有类似的信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; C:\Users\haoyang\AppData\Roaming\npm\weinre -&amp;gt; C:\Users\haoyang\AppData\Roaming\npm\node_modules\weinre\weinre
+ weinre@2.0.0-pre-I0Z7U9OV C:\Users\haoyang\AppData\Roaming\npm\node_modules\weinre
+ ├── underscore@1.7.0
+ ├── nopt@3.0.2 (abbrev@1.0.7)
+ └── express@2.5.11 (mime@1.2.4, qs@0.4.2, mkdirp@0.3.0, connect@1.9.2)
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;使用&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;启动服务&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; weinre --boundHost -all- --httpPort 8081
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;–boundHost [hostname | ip address | -all-]&lt;/p&gt;
+
+        &lt;p&gt;The ip address to bind the server to.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;–httpPort [portNumber]&lt;/p&gt;
+
+        &lt;p&gt;The port to run the HTTP server on.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;更多配置项参考 &lt;a href=&quot;http://people.apache.org/~pmuellr/weinre/docs/latest/Running.html&quot;&gt;官网的说明&lt;/a&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;启动成功后看到如下界面：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-weinre.png&quot; alt=&quot;weinre&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;给目标页面添加一行脚本&lt;/p&gt;
+
+    &lt;p&gt;可以看到 2.中的 Target Script 说要添加一行脚本到要调试的 web 页面中。&lt;/p&gt;
+
+    &lt;p&gt;Target Script&lt;/p&gt;
+
+    &lt;p&gt;You can use this script to inject the weinre target code into your web page.&lt;/p&gt;
+
+    &lt;p&gt;http://localhost:8081/target/target-script-min.js#anonymous&lt;/p&gt;
+
+    &lt;p&gt;Example:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &amp;lt;script src=&quot;http://localhost:8081/target/target-script-min.js#anonymous&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;这里要说明一下，要把上面的 localhost 换为本机的 ip 地址。&lt;/p&gt;
+
+    &lt;p&gt;我们可以在命令行中 使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipconfig&lt;/code&gt; 得到 ip 地址，如下（当然你的可能和我的不一样）：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; IPv4 地址 . . . . . . . . . . . . : 192.168.1.107
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;即插入如下代码：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &amp;lt;script src=&quot;http://192.168.1.107:8081/target/target-script-min.js#anonymous&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;进入调试页面&lt;/p&gt;
+
+    &lt;p&gt;PC 端访问这个地址：&lt;/p&gt;
+
+    &lt;p&gt;debug client user interface:    http://localhost:8081/client/#anonymous&lt;/p&gt;
+
+    &lt;p&gt;此时 target 为 none，如下图：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-target-none.png&quot; alt=&quot;target-none&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;现在我们要用手机访问同一个局域网下的这个目标页面。我们可以把要调试的页面放到这个路径下：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; C:\Users\haoyang\AppData\Roaming\npm\node_modules\weinre\web
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;通过 http://192.168.1.107:8081/FILE_NAME 在手机上访问，就可以看到了。当然前提是同一个局域网。&lt;/p&gt;
+
+    &lt;p&gt;但是这样可能不太灵活，每次都要把目标页面放到指定的目录下。所以我们可以另外开一个服务器。&lt;/p&gt;
+
+    &lt;p&gt;我使用了基于 node.js 的 http-server 工具。将要调试的页面发布。这样我就能通过 ip 地址加端口号在手机上访问到了。&lt;/p&gt;
+
+    &lt;p&gt;我在手机上访问 http://192.168.1.107:8080 打开要调试的页面，此时 debug client user interface 中自动检测到 target。就可以进行调试了！&lt;/p&gt;
+
+    &lt;p&gt;如下图：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-target.png&quot; alt=&quot;target&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-1954958440_meitu_2.jpg&quot; alt=&quot;phone&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/dojotoolkit/article/details/6280924&quot;&gt;Web移动应用调试工具——Weinre&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://muellerware.org/papers/weinre/manual.html&quot;&gt;weinre - WEb INspector REmote&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/smy_yu/article/details/38922315&quot;&gt;webapp开发调试环境–weinre配置&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 18 Jun 2016 08:06:05 +0800</pubDate>
+        <link>http://umi101108.github.io/2016/06/18/dsf/</link>
+        <guid isPermaLink="true">http://umi101108.github.io/2016/06/18/dsf/</guid>
+        
+        <category>Weinre</category>
+        
+        <category>WebApp</category>
+        
+        <category>调试工具</category>
+        
+        <category>JavaScript</category>
+        
+        <category>HTML</category>
+        
+        <category>CSS</category>
+        
+        
+        <category>JavaScript</category>
+        
+      </item>
+    
+      <item>
+        <title>Weinre --WebApp 调试工具</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#weinre&quot; id=&quot;markdown-toc-weinre&quot;&gt;什么是 weinre？&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#weinre-1&quot; id=&quot;markdown-toc-weinre-1&quot;&gt;为什么用 weinre？&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;原理&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;安装&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;使用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-3&quot; id=&quot;markdown-toc-section-3&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;weinre&quot;&gt;什么是 weinre？&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html&quot;&gt;weinre官网&lt;/a&gt; 上有两句有意思的介绍：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;weinre&lt;/strong&gt; is &lt;strong&gt;WE&lt;/strong&gt;b &lt;strong&gt;IN&lt;/strong&gt;spector &lt;strong&gt;RE&lt;/strong&gt;mote. Pronounced like the word “winery”. Or maybe like the word “weiner”. Who knows, really.&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;weinre&lt;/strong&gt; is a debugger for web pages, like FireBug (for FireFox) and Web Inspector (for WebKit-based browsers), except it’s designed to work remotely, and in particular, to allow you debug web pages on a mobile device such as a phone.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;上面说 weinre 是一个远程 web 调试器。说到了它的发音，还挺幽默，哈哈。&lt;/p&gt;
+
+&lt;p&gt;远程 web 调试器。先说调试器，就像火狐中的 FireBug，Chrome 中的调试器一样。就是在浏览器中按下 &lt;code class=&quot;highlighter-rouge&quot;&gt;F12&lt;/code&gt; 出现的那个工具。但是在手机上，你没办法按 &lt;code class=&quot;highlighter-rouge&quot;&gt;F12&lt;/code&gt;，而这个 weinre 就是在手机上的 &lt;code class=&quot;highlighter-rouge&quot;&gt;F12&lt;/code&gt;，与传统的不同的是，它是在手机上浏览你的 web 页面，在 PC 上查看调试工具，非常方便，这就是所谓的远程。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;weinre-1&quot;&gt;为什么用 weinre？&lt;/h2&gt;
+
+&lt;p&gt;现代浏览器中调试工具都非常强大了，可以直接模拟手机设备，为什么还要用 weinre 这么麻烦的东西呢？&lt;/p&gt;
+
+&lt;p&gt;我觉得 PC 端的浏览器虽说可以模拟，但模拟毕竟还是模拟，还只是鼠标长按滑来滑去。在开发过程中，使用手机或平板直接来感受是多么的酷，指尖在移动设备的屏幕上摩擦摩擦！给人的直观感受绝对秒杀浏览器的模拟。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;原理&lt;/h2&gt;
+
+&lt;p&gt;使用一种工具之前，了解它的原理和结构是很有帮助的。weinre 作为一种远程调试工具，在结构上分为三层：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标页面（target）：被调试的页面，页面已嵌入 weinre 的远程 js，下文会介绍；&lt;/li&gt;
+  &lt;li&gt;Debug客户端（client）：本地的 Web Inspector 调试客户端；&lt;/li&gt;
+  &lt;li&gt;Debug服务端（agent）：一个 HTTP Server，为目标页面与 Debug 客户端建立通信。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;三层结构如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://muellerware.org/papers/weinre/images/http-flow.png&quot; alt=&quot;http-flow&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;weinre 的 debug 客户端是基于 Web Inspector 开发，而 Web Inspector 只与以 WebKit 为核心的浏览器兼容，所以 Weinre 的客户端只能用 Chrome 或者 Safari 打开。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://people.apache.org/~pmuellr/weinre/docs/latest/Home.html&quot;&gt;官网&lt;/a&gt;上也有相应的平台支持说明：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Platforms supported - debug server 服务端&lt;/p&gt;
+
+    &lt;p&gt;任何支持 node.js 的平台。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Platforms supported - debug client 客户端（跑 debugger 界面的浏览器）&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Google Chrome&lt;/li&gt;
+      &lt;li&gt;Apple Safari&lt;/li&gt;
+      &lt;li&gt;Other recent-ish WebKit-based browsers 其他基于 webkit 内核的现代浏览器&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Platforms supported - debug target 目标页面（在移动设备中调试运行的目标页面）&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Android Browser application&lt;/li&gt;
+      &lt;li&gt;iOS Mobile Safari application&lt;/li&gt;
+      &lt;li&gt;PhoneGap/Cordova&lt;/li&gt;
+      &lt;li&gt;other&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;安装&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;weinre 是 nodeJS 的一个应用，首先要 &lt;a href=&quot;https://nodejs.org/&quot;&gt;安装 nodeJS 运行环境&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用 npm 命令，安装 weinre&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; npm -g install weinre
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;安装成功后会有类似的信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; C:\Users\haoyang\AppData\Roaming\npm\weinre -&amp;gt; C:\Users\haoyang\AppData\Roaming\npm\node_modules\weinre\weinre
+ weinre@2.0.0-pre-I0Z7U9OV C:\Users\haoyang\AppData\Roaming\npm\node_modules\weinre
+ ├── underscore@1.7.0
+ ├── nopt@3.0.2 (abbrev@1.0.7)
+ └── express@2.5.11 (mime@1.2.4, qs@0.4.2, mkdirp@0.3.0, connect@1.9.2)
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;使用&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;启动服务&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; weinre --boundHost -all- --httpPort 8081
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;–boundHost [hostname | ip address | -all-]&lt;/p&gt;
+
+        &lt;p&gt;The ip address to bind the server to.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;–httpPort [portNumber]&lt;/p&gt;
+
+        &lt;p&gt;The port to run the HTTP server on.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;更多配置项参考 &lt;a href=&quot;http://people.apache.org/~pmuellr/weinre/docs/latest/Running.html&quot;&gt;官网的说明&lt;/a&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;启动成功后看到如下界面：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-weinre.png&quot; alt=&quot;weinre&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;给目标页面添加一行脚本&lt;/p&gt;
+
+    &lt;p&gt;可以看到 2.中的 Target Script 说要添加一行脚本到要调试的 web 页面中。&lt;/p&gt;
+
+    &lt;p&gt;Target Script&lt;/p&gt;
+
+    &lt;p&gt;You can use this script to inject the weinre target code into your web page.&lt;/p&gt;
+
+    &lt;p&gt;http://localhost:8081/target/target-script-min.js#anonymous&lt;/p&gt;
+
+    &lt;p&gt;Example:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &amp;lt;script src=&quot;http://localhost:8081/target/target-script-min.js#anonymous&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;这里要说明一下，要把上面的 localhost 换为本机的 ip 地址。&lt;/p&gt;
+
+    &lt;p&gt;我们可以在命令行中 使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ipconfig&lt;/code&gt; 得到 ip 地址，如下（当然你的可能和我的不一样）：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; IPv4 地址 . . . . . . . . . . . . : 192.168.1.107
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;即插入如下代码：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &amp;lt;script src=&quot;http://192.168.1.107:8081/target/target-script-min.js#anonymous&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;进入调试页面&lt;/p&gt;
+
+    &lt;p&gt;PC 端访问这个地址：&lt;/p&gt;
+
+    &lt;p&gt;debug client user interface:    http://localhost:8081/client/#anonymous&lt;/p&gt;
+
+    &lt;p&gt;此时 target 为 none，如下图：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-target-none.png&quot; alt=&quot;target-none&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;现在我们要用手机访问同一个局域网下的这个目标页面。我们可以把要调试的页面放到这个路径下：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; C:\Users\haoyang\AppData\Roaming\npm\node_modules\weinre\web
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;通过 http://192.168.1.107:8081/FILE_NAME 在手机上访问，就可以看到了。当然前提是同一个局域网。&lt;/p&gt;
+
+    &lt;p&gt;但是这样可能不太灵活，每次都要把目标页面放到指定的目录下。所以我们可以另外开一个服务器。&lt;/p&gt;
+
+    &lt;p&gt;我使用了基于 node.js 的 http-server 工具。将要调试的页面发布。这样我就能通过 ip 地址加端口号在手机上访问到了。&lt;/p&gt;
+
+    &lt;p&gt;我在手机上访问 http://192.168.1.107:8080 打开要调试的页面，此时 debug client user interface 中自动检测到 target。就可以进行调试了！&lt;/p&gt;
+
+    &lt;p&gt;如下图：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-target.png&quot; alt=&quot;target&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;http://7q5cdt.com1.z0.glb.clouddn.com/blog-1954958440_meitu_2.jpg&quot; alt=&quot;phone&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/dojotoolkit/article/details/6280924&quot;&gt;Web移动应用调试工具——Weinre&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://muellerware.org/papers/weinre/manual.html&quot;&gt;weinre - WEb INspector REmote&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/smy_yu/article/details/38922315&quot;&gt;webapp开发调试环境–weinre配置&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 18 Jun 2015 08:06:05 +0800</pubDate>
+        <link>http://umi101108.github.io/2015/06/18/weinre/</link>
+        <guid isPermaLink="true">http://umi101108.github.io/2015/06/18/weinre/</guid>
+        
+        <category>Weinre</category>
+        
+        <category>WebApp</category>
+        
+        <category>调试工具</category>
+        
+        <category>JavaScript</category>
+        
+        <category>HTML</category>
+        
+        <category>CSS</category>
+        
+        
+        <category>JavaScript</category>
+        
+      </item>
+    
+      <item>
+        <title>Weinr3333e --WebApp 调试工具</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#weinre&quot; id=&quot;markdown-toc-weinre&quot;&gt;2222222什么是 weinre？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;weinre&quot;&gt;2222222什么是 weinre？&lt;/h2&gt;
+
+</description>
+        <pubDate>Mon, 08 Jun 2015 08:06:05 +0800</pubDate>
+        <link>http://umi101108.github.io/2015/06/08/helloworld/</link>
+        <guid isPermaLink="true">http://umi101108.github.io/2015/06/08/helloworld/</guid>
+        
+        <category>Weinre</category>
+        
+        <category>WebApp</category>
+        
+        <category>调试工具</category>
+        
+        <category>JavaScript</category>
+        
+        <category>umi</category>
+        
+        <category>hello</category>
+        
+        
+        <category>Python</category>
+        
+      </item>
+    
+  </channel>
+</rss>
