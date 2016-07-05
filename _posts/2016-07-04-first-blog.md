@@ -14,3 +14,7 @@ tags: blog daily
 希望以后能坚持写下去
 
 
+{% include comments.html %}
+
+
+
