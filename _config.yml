@@ -14,13 +14,13 @@ url: "http://www.umi101108.com" # the base hostname & protocol for your site
 permalink: /:year/:month/:day/:title/
 
 # other links
-twitter_username: gaohaoyang126
-facebook_username: gaohaoyang.water
-github_username:  Gaohaoyang
+twitter_username: #gaohaoyang126
+facebook_username: #gaohaoyang.water
+github_username:  #Gaohaoyang
 email: wangwei101108@foxmail.com
-weibo_username: 3115521wh
-zhihu_username: gaohaoyang
-linkedIn_username: gaohaoyang
+weibo_username: #3115521wh
+zhihu_username: #gaohaoyang
+linkedIn_username: #gaohaoyang
 dribbble_username:
 
 description_footer: Fighting!
