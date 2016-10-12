@@ -195,6 +195,18 @@ Syntax Theme: Atom Dark or One Dark
 
 * [JS前端开发群月报 -豪情等人维护](http://www.kancloud.cn/jsfront/month/82796)
 
+## Python 相关
+
+* [钟爱Python](http://www.jianshu.com/notebooks/255245/latest)
+
+* [Django之歌](http://www.jianshu.com/notebooks/293635/latest)
+
+* [Python知乎专栏](https://zhuanlan.zhihu.com/xh-coding)
+
+  ​
+
+  ​
+
 ## Comments
 
 {% include comments.html %}
