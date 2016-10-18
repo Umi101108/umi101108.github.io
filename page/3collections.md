@@ -7,6 +7,11 @@ icon: bookmark
 
 * content
 {:toc}
+## 书籍
+
+* [免费的中文编程书籍索引](http://siberiawolf.com/free_programming/index.html)
+
+
 
 ## 工具
 
@@ -205,7 +210,9 @@ Syntax Theme: Atom Dark or One Dark
 
   ​
 
-  ​
+## 有意思的网站
+
+* [像素风地图描绘](https://pixelmap.amcharts.com/)
 
 ## Comments
 
