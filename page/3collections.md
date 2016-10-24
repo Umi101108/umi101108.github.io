@@ -10,7 +10,16 @@ icon: bookmark
 ## 书籍
 
 * [免费的中文编程书籍索引](http://siberiawolf.com/free_programming/index.html)
+* 《欺骗的艺术》
+* 《入侵的艺术》
+* 《线上幽灵》
 
+
+
+
+## 职业素养
+
+* [知道创宇研发技能表](http://blog.knownsec.com/Knownsec_RD_Checklist/v2.2.html)
 
 
 ## 工具
