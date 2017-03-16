@@ -15,11 +15,15 @@ icon: bookmark
 
 ### 知识 
 
-​	[知乎](https://www.zhihu.com/) 
+​	[知乎](https://www.zhihu.com/) | [MOOC学院](http://mooc.guokr.com/) 
 
 ### 编程
 
-​	[LeetCode](https://leetcode.com/) | [GitHub](https://github.com/) |
+​	[LeetCode](https://leetcode.com/) | [GitHub](https://github.com/) | [Codecademy](https://www.codecademy.com/zh/) | [Stack Overflow]()  | [w3school](http://www.w3school.com.cn/) | [udemy](https://www.udemy.com/) | [慕课网](http://www.imooc.com/) | [实验楼](https://www.shiyanlou.com/) 
+
+### 博客
+
+​	[静觅](http://cuiqingcai.com/) |
 
 ### 综合
 
@@ -33,9 +37,7 @@ icon: bookmark
 
 ​	[人人字幕组](http://www.zmz2017.com/) | [哔哩哔哩](http://www.bilibili.com/) | [AcFun](http://www.acfun.cn/) 
 
-### 博客
 
-​	[静觅](http://cuiqingcai.com/) |
 
 
 
