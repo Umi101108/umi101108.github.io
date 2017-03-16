@@ -11,6 +11,30 @@ icon: heart
 ## 关于我
 暂时不知道说什么
 
+需要点亮的技能树：
+
+### Python
+
+Scrapy， Django， Flask
+
+### SQL
+
+SQLServer， MySQL
+
+### NoSQL
+
+Mongodb， Json
+
+### Web
+
+Html， Css， JavaScript
+
+### React Native
+
+
+
+
+
 
 ## 联系我
 
