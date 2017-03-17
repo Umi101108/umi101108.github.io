@@ -23,9 +23,9 @@ icon: bookmark
 
 ### 博客
 
-​	[静觅](http://cuiqingcai.com/) |
+​	[静觅](http://cuiqingcai.com/) | [扩软博客](https://blog.kuoruan.com)| [stormzhang](http://stormzhang.com/posts/) | [wklken](http://www.wklken.me) |
 
-### 综合
+###  综合
 
 ​	[鼠绘](http://www.ishuhui.com/) | 
 
