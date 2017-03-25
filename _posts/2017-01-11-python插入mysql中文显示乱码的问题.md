@@ -36,6 +36,22 @@ SET character_set_results='utf8';
 
 至此，在mysql命令行中就可以插入和显示中文了。但是python连数据库插入的还是乱码啊啊！！
 
+——更新——————
+
+新建数据表时，也要注意设定的字符集
+
+```sql
+CREATE TABLE `dd_chaptername` (   
+  ···
+) ENGINE=InnoDB DEFAULT CHARSET= utf8mb4;
+```
+
+查看数据表每列的字符集
+
+```sql
+show full columns from table_names;
+```
+
 
 
 ## python 配置
