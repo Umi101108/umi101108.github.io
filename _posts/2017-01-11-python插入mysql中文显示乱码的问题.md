@@ -65,10 +65,20 @@ cur = conn.cursor()
 然后
 
 ```python
-cur.execute("set NAMES utf8")
+cur.execute("set NAMES utf8")  #一般到这一步就行了
+cur.execute('SET CHARACTER SET utf8;')
+cur.execute('SET character_set_connection=utf8;')
 ```
 
 就可以愉快的执行插入中文的命令了
+
+——如果还不行的话----
+
+```python
+conn.set_character_set('utf8')
+```
+
+
 
 
 
