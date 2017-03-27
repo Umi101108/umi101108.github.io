@@ -21,6 +21,10 @@ Scrapy， Django， Flask
 
 SQLServer， MySQL
 
+### Linux
+
+Vim， TCP/IP， Docker
+
 ### NoSQL
 
 Mongodb， Json
