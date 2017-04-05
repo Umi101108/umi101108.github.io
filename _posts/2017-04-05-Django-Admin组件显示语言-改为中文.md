@@ -2,8 +2,8 @@
 layout: post
 title:  "Django Admin组件显示语言 改为中文"
 date:   2017-04-05
-categories: Linux
-tags: Linux
+categories: Django
+tags: Django 
 excerpt: 将Django Admin 后台的界面语言改为中文
 ---
 * content
