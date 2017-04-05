@@ -31,7 +31,7 @@ Mongodb， Json
 
 ### Web
 
-Html， Css， JavaScript
+Html， Css， JavaScript， Selenium
 
 ### React Native
 
