@@ -31,5 +31,18 @@ excerpt: error "Row size too large (> 8126). Changing some columns to TEXT or BL
    KEY_BLOCK_SIZE = 8;
    ```
 
-   ​
 
+
+
+
+*2017-04-14 更新*
+
+不同MySQL版本之间传输还是会有问题
+
+先执行一下代码
+
+```sql
+SET GLOBAL innodb_file_format='Barracuda';
+```
+
+在执行之前的代码即可
