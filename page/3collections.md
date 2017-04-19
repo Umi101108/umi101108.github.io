@@ -15,7 +15,7 @@ icon: bookmark
 
 ### 知识 
 
-​	[知乎](https://www.zhihu.com/) | [MOOC学院](http://mooc.guokr.com/) 
+​	[知乎](https://www.zhihu.com/) | [MOOC学院](http://mooc.guokr.com/) | [简书](http://www.jianshu.com/) 
 
 ### 编程
 
