@@ -66,3 +66,27 @@ pip install -r requirements.txt		## 根据requirements.txt文件生成相同的�
 deactivate
 ```
 
+
+
+
+
+## Mac环境下
+
+操作过程中又发现了一个虚拟环境管理包：**virtualenvwrapper**
+
+```shell
+$ pip install virtualenvwrapper
+$ export WORKON_HOME=~/Envs
+$ mkdir -p $WORKON_HOME
+$ source /usr/local/bin/virtualenvwrapper.sh
+$ mkvirtualenv envl
+```
+
+安装完成后会自动进入新的环境。
+
+这时，因为安装过anaconda的关系，可能会出现OSError。此时，需要用默认python来创建虚拟环境
+
+```shell
+$ mkvirtualenv test -p /usr/bin/python
+```
+
