@@ -87,6 +87,6 @@ $ mkvirtualenv envl
 这时，因为安装过anaconda的关系，可能会出现OSError。此时，需要用默认python来创建虚拟环境
 
 ```shell
-$ mkvirtualenv test -p /usr/bin/python
+$ mkvirtualenv test -p /usr/bin/python 
 ```
 
