@@ -37,3 +37,21 @@ MIDDLEWARE_CLASSES = [
 
 
 其他什么将 LANGUAGE_CODE='en-us' 改为 'zh_CN' 的亲测不可用
+
+
+
+------------------------
+
+2017-04-26 更新
+
+发现了新的办法
+
+django1.7之前‘en-us'是可用的，之后就改成了'zh-hans'...
+
+```python
+# settings 修改一下内容
+LANGUAGE_CODE = 'zh-hans'
+TIME_ZONE = 'Asia/Shanghai'
+USE_TZ = False
+```
+
