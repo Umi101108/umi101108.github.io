@@ -2,13 +2,15 @@
 layout: post
 title:  "Pycharm 中ß报错Reason: image not found"
 date:   2017-05-11
-categories: MySQL
+categories: python
 tags: Pycharm python
 excerpt: 在Pycharm中运行Django时出现ImportError，提示Reason: image not found
 ---
 
 * content
 {:toc}
+
+
 
 
 用virtualenvwrapper创建好虚拟环境，在命令行中运行成功，但是在Pycharm中运行失败，提示Python mysqldb: Library not loaded: libmysqlclient.18.dylib reason: image not found。
