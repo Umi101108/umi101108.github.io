@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Pycharm 中Django使用MySQL模块报错Reason: image not found"
+title:  "Pycharm 中ß报错Reason: image not found"
 date:   2017-05-11
 categories: MySQL
 tags: Pycharm python
