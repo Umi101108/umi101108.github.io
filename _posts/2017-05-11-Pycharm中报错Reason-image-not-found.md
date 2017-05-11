@@ -3,7 +3,7 @@ layout: post
 title:  "Pycharm报错"
 date:   2017-05-11
 categories: Python
-tags: Pycharm  Python
+tags: Pycharm Python
 excerpt: Pycharm
 ---
 
