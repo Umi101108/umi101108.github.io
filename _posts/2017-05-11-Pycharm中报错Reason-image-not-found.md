@@ -11,7 +11,7 @@ excerpt: Pycharm
 {:toc}
 
 
-## 格式有问题
+
 
 用virtualenvwrapper创建好虚拟环境，在命令行中运行成功，但是在Pycharm中运行失败，提示Python mysqldb: Library not loaded: libmysqlclient.18.dylib reason: image not found。
 
