@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Pycharm 中ß报错Reason: image not found"
+title:  "Pycharm报错"
 date:   2017-05-11
-categories: python
-tags: Pycharm python
-excerpt: 在Pycharm中运行Django时出现ImportError，提示Reason: image not found
+categories: Python
+tags: Pycharm  Python
+excerpt: Pycharm
 ---
 
 * content
