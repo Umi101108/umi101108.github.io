@@ -84,9 +84,32 @@ $ mkvirtualenv envl
 
 安装完成后会自动进入新的环境。
 
+把export命令和source命令，加入到```~/.bash_profile```，就不用重复初始化了。
+
 这时，因为安装过anaconda的关系，可能会出现OSError。此时，需要用默认python来创建虚拟环境
 
 ```shell
 $ mkvirtualenv test -p /usr/bin/python 
 ```
 
+
+
+* 切换环境
+
+  ```shell
+  workon env1
+  ```
+
+* 退出环境
+
+  ```shell
+  deactivate
+  ```
+
+* 删除环境
+
+  ```shell
+  rmvirtualenv
+  ```
+
+  ​
