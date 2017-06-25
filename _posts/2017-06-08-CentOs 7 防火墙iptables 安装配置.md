@@ -61,7 +61,7 @@ excerpt: CentOS7 中安装防火墙iptables并配置
    systemctl start ip6tables 
    ```
 
-   Bingo~
+   Bingo~~
 
 
 
