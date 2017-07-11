@@ -4,7 +4,7 @@ title:  "Mac SublimeText shell session update"
 date:   2017-07-04 17:21:54
 categories: Mac
 tags: Mac error
-excerpt: Mac 下sublime 运行Python文件出现错误提示/bin/bash: shell_session_update: command not found
+excerpt: Mac 下sublime 运行Python文件出现错误提示“/bin/bash: shell_session_update: command not found”
 ---
 
 
