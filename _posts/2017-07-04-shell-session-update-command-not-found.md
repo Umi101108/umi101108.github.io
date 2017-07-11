@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Mac SublimeText compile python .py error /bin/bash: shell_session_update: command not found"
+title:  "Mac SublimeText /bin/bash: shell_session_update: command not found"
 date:   2017-07-04 17:21:54
 categories: Mac
 tags: Mac error
