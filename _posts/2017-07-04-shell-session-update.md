@@ -5,7 +5,6 @@ date:   2017-07-04 17:21:54
 categories: Mac
 tags: Mac error
 excerpt: /bin/bash: shell_session_update: command not found
-
 ---
 
 * content
