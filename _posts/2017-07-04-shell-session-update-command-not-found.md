@@ -12,14 +12,10 @@ excerpt: /bin/bash: shell_session_update: command not found
 {:toc}
 
 
-
+233
 
 
 > Sublime Text 中运行python文件总会出现“/bin/bash: shell_session_update: command not found”，虽然不影响运行，但总觉得不爽，还是得解决一下
-
-
-
-
 
 
 
