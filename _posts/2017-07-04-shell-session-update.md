@@ -4,7 +4,7 @@ title:  "Mac SublimeText shell session update"
 date:   2017-07-04 17:21:54
 categories: Mac
 tags: Mac error
-excerpt: 2333
+excerpt: /bin/bash: shell_session_update: command not found
 ---
 
 
