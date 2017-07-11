@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Mac SublimeText shell_session_update"
+title:  "Mac SublimeText shell session update"
 date:   2017-07-04 17:21:54
 categories: Mac
 tags: Mac error
