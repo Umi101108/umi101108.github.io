@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "数据库设计规范"
-date:   2017-07-08 17:21:54
-categories: MySQL
-tags: MySQL
-excerpt: 整理了一份数据库设计规范！
+title:  "Mac SublimeText shell_session_update"
+date:   2017-07-04 17:21:54
+categories: Mac
+tags: Mac error
+excerpt: /bin/bash: shell_session_update: command not found
 ---
 
 
