@@ -27,13 +27,13 @@ Vim， TCP/IP， Docker
 
 ### NoSQL
 
-Mongodb， Json
+Mongodb， Json， Redis
 
 ### Web
 
 Html， Css， JavaScript， Selenium
 
-### React Native
+### Elastic Search
 
 
 
