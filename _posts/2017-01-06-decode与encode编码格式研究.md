@@ -84,3 +84,24 @@ else:
 ```
 
 需要其他编码转换自行替换代码~~
+
+
+
+### \u字符串转换为unicode类型
+
+```python
+s = '\u5317\u4eac'
+print s.decode('raw_unicode_escape')
+```
+
+
+
+### 列表中包含中文的输出
+
+```python
+# 列表中包含中文，循环输出可以显示正常，但是直接打印列表还是会乱码
+import json
+list = ['中文', '英文']
+print json.dumps(list, ensure_ascii=False, indent=2)
+```
+
