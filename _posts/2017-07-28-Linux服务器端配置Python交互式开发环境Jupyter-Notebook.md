@@ -13,9 +13,11 @@ excerpt: Linux服务器端配置Python交互式开发环境Jupyter Notebook，�
 
 # Jupyter Notebook
 
-Jupyter Notebook 是一个交互式笔记本。
+Jupyter Notebook 是一个交互式笔记本。Jupyter能够将实时代码、公式、可视化图标以cell的方式组织在一起，形成一个对代码友好的笔记本。
 
 
+
+## 安装配置
 
 1. 安装Jupyter notebook
 
@@ -86,3 +88,42 @@ Jupyter Notebook 是一个交互式笔记本。
    在浏览器中输入```http://ip:8888```
 
    Bingo~
+
+
+
+## 快捷键
+
+查看快捷键列表：```Help > Keyboard Shortcuts```
+
+调出命令面板：```Ctrl + Shift + P```
+
+进入命令模式：```Esc```
+
+在命令模式下：
+
+* ```A``` 在当前单元格上方插入一个新的单元格
+
+  ```B``` 在当前单元格下方插入一个新的单元格
+
+* ```M``` 将当前单元格更改为Markdown
+
+  ```Y``` 将当前单元格更改为代码
+
+* ```D + D``` 删除当前单元格
+
+* ```Enter``` 将使你从命令模式返回到给定单元格的编辑模式
+
+* ```Shift + Tab``` 将显示你刚刚在代码单元格键入的对象的文档
+
+* ```Ctrl + Shift + -``` 将会将当前单元格分割为两个单元格
+
+在代码中查找、替换、忽略输出： ```Esc + F```
+
+在单元格和输出结果间切换：```Esc + o ```
+
+选择多个单元格：
+
+* ```Shift + J``` 或 ```Shift + Down``` 选择下一个单元格
+* ```Shift + K``` 或 ```Shift + Up``` 选择上一个单元格
+* ```Shift + M``` 合并单元格
+
