@@ -14,6 +14,10 @@ excerpt: CentOS7 中安装防火墙iptables并配置
 
 >本来觉得跟阿里云设置一样，结果因为centos 7 与centos 6还是有些差别的，遇到了不少坑
 
+
+
+
+
 #### 远程连接MySQL
 
 1. 设置账号
@@ -165,4 +169,9 @@ excerpt: CentOS7 中安装防火墙iptables并配置
    systemctl restart iptables.service
    ```
 
-   ​
+
+
+
+--2017-09-21更新--
+
+如果是阿里云centos7.3版本，远程连接不上，出现错误（2003-Can't connect to MySQL server(10060)），就到阿里云Ecs实例安全组配置里新建一个配置吧，坑死了...
