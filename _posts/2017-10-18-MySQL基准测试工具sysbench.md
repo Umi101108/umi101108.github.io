@@ -49,4 +49,29 @@ excerpt: sysbench基准测试工具安装及使用说明
    sysbench --version
    ```
 
-   ​
+   ————make时遇到问题的解决方案————
+
+   如果在make时遇到问题
+
+   ```shell
+   /usr/bin/ld: cannot find -lmysqlclient_r
+   collect2: error: ld returned 1 exit status
+   ```
+
+   cannot find -l后面跟的是库文件，就是mysqlclient_r库文件找不到
+
+   去根目录找一下
+
+   ```shell
+   find / -name "*mysqlclient_r*"
+   /usr/lib64/mysql/libmysqlclient_r.so.18
+   /usr/lib64/mysql/libmysqlclient_r.so.18.1.0
+   ```
+
+   可以看到库文件是有的，只是带了个数字后缀，给库文件建立软链接即可
+
+   ```shell
+   ln -s /usr/lib64/mysql/libmysqlclient_r.so.18 /usr/lib64/mysql/libmysqlclient_r.so
+   ```
+
+   重新make即可
