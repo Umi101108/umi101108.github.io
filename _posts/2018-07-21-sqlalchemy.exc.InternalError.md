@@ -4,8 +4,7 @@ title:  "sqlalchemy.exc.InternalError"
 date:   2018-07-21 13:13:52
 categories: Error
 tags: Flask Python Error
-excerpt: Flask运行
-SQLAlchemy中数据库连接错误
+excerpt: Flask运行SQLAlchemy中数据库连接错误
 ---
 
 * content
